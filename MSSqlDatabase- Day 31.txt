@@ -1,0 +1,187 @@
+select * from sys.databases
+
+
+
+To create DB
+
+create database testdb
+
+
+To drop
+
+drop database testdb
+
+
+
+
+UseCase1
+
+create database payroll_service
+
+
+use payroll_service
+
+
+SELECT DB_NAME()
+
+
+
+Use Case2
+
+
+create table employee_payroll
+
+(
+
+ID int identity primary key,
+
+Name varchar(150) not null,
+
+salary money not null,
+
+start date not null
+
+);
+
+
+alter table employee_payroll add primary key (column_name)
+
+
+Command to see the details of the table
+
+SELECT *
+
+FROM INFORMATION_SCHEMA.COLUMNS
+
+WHERE table_name = 'employee_payroll'
+
+
+
+
+use case3
+
+
+insert into employee_payroll values
+
+('Bill',100000.0,'2018-01-03'),
+
+('Terisa',2000000.0,'2019-11-13'),
+
+('Charlie',300000.0,'2020-05-21');
+
+
+
+
+USECASE 4
+
+select * from employee_payroll
+
+
+USECASE 5
+
+
+select salary from employee_payroll where Name='Billi';
+
+
+To view the current date in SQL server
+
+select getdate();
+
+
+select salary from employee_payroll where Name='Bill';
+
+select * from employee_payroll
+
+where start between '2018-01-01' and GETDATE()
+
+
+
+
+
+USECASE 6
+
+
+alter table employee_payroll add gender char(1);
+
+
+
+update employee_payroll set gender='F' where Name='Terisa'
+
+update employee_payroll set gender='F' where Name='Billi' or Name='Charlie'
+
+
+
+USECASE 7
+
+
+select AVG(salary) from employee_payroll where gender='M' group by gender
+
+
+select AVG(salary) from employee_payroll group by gender
+
+select gender,AVG(salary) from employee_payroll group by gender
+
+select gender,count(Name) from employee_payroll group by gender
+
+select gender,sum(salary) from employee_payroll group by gender
+
+
+
+
+use payroll_service
+
+select DB_NAME()
+
+select * from sys.tables
+
+select * from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME='employee_payroll';
+
+select * from employee_payroll;
+
+
+--UC 8
+
+Alter table employee_payroll add Phone_number varchar(15);
+
+Alter table employee_payroll add address varchar(250);
+
+Alter table employee_payroll add department varchar(150) not null;
+
+Alter table employee_payroll add constraint DF_SomeName default 'TBD' for address;
+
+insert into employee_payroll(name, salary,start) values('Bill', 100000.00,'2018-01-03')
+
+
+--UC 9
+
+
+sp_rename 'employee_payroll.salary', 'basic_pay'
+
+
+--real
+
+Alter table employee_payroll add deductions float;
+
+
+Alter table employee_payroll add taxable_pay real;
+
+
+Alter table employee_payroll add tax real;
+
+Alter table employee_payroll add net_pay real;
+
+update employee_payroll set department='Sales' where name='Terisa'
+
+
+
+
+--UC 10
+
+
+select * from employee_payroll where Name='Terisa'
+
+insert into employee_payroll
+
+(Name,department,gender,basic_pay,deductions,taxable_pay,tax, net_pay,start) values
+
+('Terisa','Marketting','F',3000000.00,100000.00,200000.00,500000.00,150000.00,'2018-01-03')
